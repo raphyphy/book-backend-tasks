@@ -1,0 +1,237 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Book API",
+    "description": "My Book Project Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": ["book"],
+        "summary": "Get all books",
+        "description": "Get all books in the db",
+        "operationId": "listBooks",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "books": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Book"
+                      }
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["book"],
+        "summary": "Add a new book to the store",
+        "description": "Add a new book to the store",
+        "operationId": "addBook",
+        "requestBody": {
+          "description": "Create a new book in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": true,
+                "$ref": "#/components/schemas/PartialBook"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "get": {
+        "tags": ["book"],
+        "summary": "Find book by ID",
+        "description": "Returns a single book",
+        "operationId": "getBookById",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of book to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["book"],
+        "summary": "Deletes a book",
+        "description": "delete a book",
+        "operationId": "deleteBook",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "Book id to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "put": {
+        "tags": ["book"],
+        "summary": "Update book",
+        "description": "Updates a book",
+        "operationId": "updateBook",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "Book id to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent book in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialBook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "63beedf6fccdd7bc4e34382c"
+          },
+          "title": {
+            "type": "string",
+            "example": "A book of what"
+          },
+          "author": {
+            "type": "string",
+            "example": "Raphael Bihis"
+          },
+          "year": {
+            "type": "date-time",
+            "example": "2022-12-29T18:23:04.260Z"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "2582c891-e069-4a04-93cf-d0d6c30d3090"
+          }
+        }
+      },
+      "PartialBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "A book of what"
+          },
+          "author": {
+            "type": "string",
+            "example": "Raphael Bihis"
+          },
+          "year": {
+            "type": "date-time",
+            "example": "2022-12-29T18:23:04.260Z"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "2582c891-e069-4a04-93cf-d0d6c30d3090"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Book": {
+        "description": "Book object that needs to be added to the store",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Book"
+            }
+          }
+        }
+      }
+    }
+  }
+}
