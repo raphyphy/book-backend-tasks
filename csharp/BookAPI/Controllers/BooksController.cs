@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BookAPI.Entities;
+﻿using BookAPI.Entities;
 using BookAPI.Repositories.Interfaces;
-using BookAPI.Repositories.Base;
-using Microsoft.AspNetCore.Authorization;
 using BookAPI.Services;
-using BookAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookAPI.Controllers
 {
@@ -23,7 +15,7 @@ namespace BookAPI.Controllers
 
         public BooksController(IBookRepository bookRepository)
         {
-            _bookRepository= bookRepository;
+            _bookRepository = bookRepository;
             _bookService = new BookService(this.ModelState, bookRepository);
         }
 

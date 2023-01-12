@@ -7,15 +7,11 @@ namespace BookAPI.Entities
 {
     public class Book : BaseEntity
     {
-        [NotNull]
         public string title { get; set; }
-        [NotNull]
         public string name { get; set; }
-        [NotNull]
         public DateTime year { get; set; }
         [RegularExpression(@"^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$")]
         [DefaultValue("1248752418865")]
-        [NotNull]
         public string isbn { get; set; }
     }
 
