@@ -1,13 +1,13 @@
-﻿How to run:
+﻿# How to run:
 
-Prerequisites:
+## Prerequisites:
 0.0 Assuming you have .net 6.0+ installed. Verify this by running
 ```
 dotnet --version
 ```
 if not, go to https://dotnet.microsoft.com/en-us/download for installation instructions
 
-Build the API
+## Build the API
 1. Navigate to where Program.cs is located
 2. ensure packages are properly installed. Run:
 ```
