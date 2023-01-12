@@ -1,3 +1,4 @@
+// write-only related interface
 export interface IWrite<T> {
     create(item: T): Promise<boolean>;
     update(id: string, item: T): Promise<boolean>;

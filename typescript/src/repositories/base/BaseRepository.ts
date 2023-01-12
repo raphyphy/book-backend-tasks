@@ -1,11 +1,11 @@
-import { IWrite, IRead } from "../interfaces";
+import { IWrite, IRead, IRepository } from "../interfaces";
 import DB from "../../database";
 import { injectable } from "inversify";
 import { ObjectId } from "mongodb";
 import { getValidObjectId } from "../../utils";
 
 @injectable()
-export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
+export abstract class BaseRepository<T> implements IRepository<T> {
     public readonly dbContext: typeof DB;
     
     // You can dynamically change DB instance here so you can switch between databases
