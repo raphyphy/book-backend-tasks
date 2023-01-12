@@ -41,7 +41,6 @@ namespace BookAPI.Services
             try
             {
                 _bookRepository.Create(book);
-                // need to make sure that running tasks in db context are "awaited" (in typescript terms, all promises are resolved)
                 await _bookRepository.SaveChangesAsync();
             }
             catch
@@ -71,10 +70,36 @@ namespace BookAPI.Services
                 return false;
             }
         }
+
+        public async Task<Book> GetBookById(string bookId)
+        {
+            return await _bookRepository.FindOne(bookId);
+        }
+
+        public async Task<IEnumerable<Book>> GetBooks()
+        {
+            return await _bookRepository.Find();
+        }
+        public async Task<bool> RemoveBook(string bookId)
+        {
+            try
+            {
+                _bookRepository.Delete(bookId);
+                await _bookRepository.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
     public interface IBookService
     {
         Task<bool> CreateBook(BookDetailDto bookToCreate);
         Task<bool> UpdateBook(string bookId, BookDetailDto bookToCreate);
+        Task<Book> GetBookById(string bookId);
+        Task<IEnumerable<Book>> GetBooks();
+        Task<bool> RemoveBook(string bookId);
     }
 }

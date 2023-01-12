@@ -10,12 +10,10 @@ namespace BookAPI.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private IBookRepository _bookRepository;
         private IBookService _bookService;
 
         public BooksController(IBookRepository bookRepository)
         {
-            _bookRepository = bookRepository;
             _bookService = new BookService(this.ModelState, bookRepository);
         }
 
@@ -23,7 +21,7 @@ namespace BookAPI.Controllers
         [Route("")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            return Ok(await _bookRepository.Find());
+            return Ok(await _bookService.GetBooks());
         }
 
         [HttpPost]
@@ -38,15 +36,14 @@ namespace BookAPI.Controllers
         [Route("{bookId}")]
         public async Task<ActionResult<Book>> GetBookById(string bookId)
         {
-            return Ok(await _bookRepository.FindOne(bookId));
+            return Ok(await _bookService.GetBookById(bookId));
         }
 
         [HttpDelete]
         [Route("{bookId}")]
         public async Task<ActionResult<Book>> DeleteBookById(string bookId)
         {
-            _bookRepository.Delete(bookId);
-            return Ok(await _bookRepository.SaveChangesAsync());
+            return Ok(await _bookService.RemoveBook(bookId));
         }
 
         [HttpPut]
