@@ -54,7 +54,8 @@ class Database {
       const index : number  = this.booksCol.findIndex(i => i.getId().equals(id))
       updateObj['id'] = id
       if(index !== -1) {    
-        this.booksCol[index] = updateObj
+        const book = new Book(id, updateObj.title, updateObj.author, updateObj.year, updateObj.isbn)
+        this.booksCol[index] = book
         return true
       } else {
         throw new NotFoundError();
