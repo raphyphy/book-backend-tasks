@@ -1,0 +1,4 @@
+csharp/BookAPI/bin/*
+csharp/BookAPI/.vs/*
+csharp/BookAPI/obj/*
+typescript/.vs/*
